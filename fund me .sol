@@ -19,9 +19,14 @@ uint256 minimumUsd = 5;
  }
 // function withdraw () public {}
 
-function getprice() public {
+function getprice() public view returns (uint256) {
 // address 0x694AA1769357215DE4FAC081bf1f309aDC325306
 // abi 
+AggregatorV3Interface pricefeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
+   (,int answer,,,) =pricefeed.latestRoundData();
+
+// price in terms of usd 
+return uint256(answer * 1e10);
 
 }
  
