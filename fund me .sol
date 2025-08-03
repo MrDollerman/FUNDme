@@ -3,10 +3,7 @@
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
  contract Fundme{
-uint256 minimumUsd = 5;
-
-
-
+uint256 minimumUsd = 5e18;
 
  function fund() public  payable  {
  //Allow user to send $
@@ -14,7 +11,7 @@ uint256 minimumUsd = 5;
 // how do we send  ETH to this contract?
 
 
- require(msg.value >minimumUsd, "dint send enough eth");
+ require(getconvertionRate(msg.value) >= minimumUsd, "dint send enough eth");
 
  }
 // function withdraw () public {}
@@ -26,14 +23,20 @@ AggregatorV3Interface pricefeed = AggregatorV3Interface(0x694AA1769357215DE4FAC0
    (,int answer,,,) =pricefeed.latestRoundData();
 
 // price in terms of usd 
-return uint256(answer * 1e10);
+return uint256(answer* 1e18);
 
 }
  
 
 
-function getconvertionRate() public {
+function getconvertionRate(uint256 ETHamount) public view returns (uint256) {
+    // 1 ETH wirth ?
 
+    uint256 ethprice = getprice();
+    // (ETHprice* 1.000000000000000000)  / 1e18
+    // 1 ethprice in usd = 1 eth 
+  uint256  ETHamountinUSD = (ethprice *ETHamount) /1e18;
+  return ETHamountinUSD;
 }
 function getversion() public view returns (uint256 ) {
 return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).version();
