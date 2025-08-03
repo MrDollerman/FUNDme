@@ -46,5 +46,9 @@ function decimalvalue() public view  returns (uint8) {
 return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).decimals();
 
 }
+function description () public view returns (string memory) {
+
+  return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).description();
+}
 
  }  
