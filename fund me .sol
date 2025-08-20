@@ -3,7 +3,10 @@
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
  contract Fundme{
-uint256 minimumUsd = 5e18;
+uint256 public  minimumUsd = 5e18;
+address[] public funders;
+mapping (address funder => uint256 amountfunded) public AddressToAmountFunded;
+    mapping(address => uint256) public contributionCount;
 
  function fund() public  payable  {
  //Allow user to send $
@@ -12,9 +15,16 @@ uint256 minimumUsd = 5e18;
 
 
  require(getconvertionRate(msg.value) >= minimumUsd, "dint send enough eth");
+funders.push(msg.sender); 
+AddressToAmountFunded[msg.sender] = AddressToAmountFunded[msg.sender] + msg.value;
 
+contributionCount[msg.sender] += 1;
  }
 // function withdraw () public {}
+
+ function getContributionCount(address user) public view returns (uint256) {
+        return contributionCount[user];
+    }
 
 function getprice() public view returns (uint256) {
 // address 0x694AA1769357215DE4FAC081bf1f309aDC325306
