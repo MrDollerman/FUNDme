@@ -23,7 +23,7 @@ AggregatorV3Interface pricefeed = AggregatorV3Interface(0x694AA1769357215DE4FAC0
    (,int answer,,,) =pricefeed.latestRoundData();
 
 // price in terms of usd 
-return uint256(answer* 1e18);
+return uint256(answer* 1e10);
 
 }
  
@@ -49,6 +49,17 @@ return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).decimal
 function description () public view returns (string memory) {
 
   return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).description();
+}
+   function convertUsdToEth(uint256 usdAmount) public view returns(uint256){
+     uint256 ethPrice = getprice();
+    
+   uint256  scaledUSD = usdAmount*1e36;
+
+     uint256 ethamount = scaledUSD/ethPrice;
+    
+     return ethamount ;
+
+
 }
 
  }  
