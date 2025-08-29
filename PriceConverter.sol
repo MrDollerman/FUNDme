@@ -7,7 +7,7 @@ library PriceConverter {
     function getprice() internal view returns (uint256) {
 // address 0x694AA1769357215DE4FAC081bf1f309aDC325306
 // abi 
-AggregatorV3Interface pricefeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
+AggregatorV3Interface pricefeed = AggregatorV3Interface(0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF);
    (,int answer,,,) =pricefeed.latestRoundData();
 
 // price in terms of usd 
@@ -27,7 +27,7 @@ function getconvertionRate(uint256 ETHamount) internal view returns (uint256) {
   return ETHamountinUSD;
 }
 function getversion() internal view returns (uint256 ) {
-return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).version();
+return AggregatorV3Interface(0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF).version();
 
 }
    function convertUsdToEth(uint256 usdAmount) internal view returns(uint256){
